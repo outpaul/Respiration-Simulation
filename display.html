@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Display</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+            margin-top: 60px;
+        }
+        table {
+            padding: 40px;
+            width: 100%;
+        }
+        table tr {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Mouse X: </th>
+                <th>Mouse Y: </th>
+            </tr>
+        </thead>
+      
+        <tr>
+            <td colspan="2">
+                <canvas id="canvas" width="1024px" height="1440px"/>
+            </td>
+        </tr>
+          <tr>
+            <td id="x">0</td>
+            <td id="y">0</td>
+        </tr>
+    </table>
+    <script src="display.js"></script>
+</body>
+</html>
