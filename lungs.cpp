@@ -43,7 +43,7 @@ void drawCircle(GLint x, GLint y, GLfloat radius, int flag = 0, GLfloat pointSiz
 }
 
 void drawOxyArrow(GLfloat alpha) {
-	
+
 	glColor4f(1.0, 0.0, 0.0, alpha);
 	glPointSize(4.0);
 	glBegin(GL_LINES);
@@ -117,7 +117,7 @@ void display() {
 		//glTranslatef(512,720,-5.0);
 		renderAlveoli();
 	}
-    
+
 }
 
 float x = 0, y = 0, xspeed = 0, yspeed = 0;;
@@ -136,37 +136,37 @@ void animateLungs() {
         xspeed = 1.8 * flag;
         yspeed = -2.4 * flag;
     }
-    
+
      if(y <= -55) {
         xspeed = -0.9 * flag;
         yspeed = -3.6 * flag;
-      
+
     }
      if(y<= -225) {
         xspeed = 0.3 * flag;
         yspeed = -3 * flag;
-        
+
     }
      if(y<= -500) {
         xspeed = 2 * flag;
         yspeed = -2 * flag;
-        
+
     }
      if(y<= -585) {
         xspeed = 0.2 * flag;
         yspeed = -2 * flag;
-        
+
     }
      if(y<= -620) {
         xspeed = 2 * flag;
         yspeed = -2.4 * flag;
-        
+
     }
      if(y<= -725) {
         flag = -1;
-        
+
     }
-   
+
     if(x <= 0 && y >= 0 && flag == -1) {
         xspeed = 0;
         yspeed = 0;
@@ -207,7 +207,7 @@ void animateAlveoli() {
         			flag = 1;
         		drawCircle(a, b, 15, flag, 3);
         	}
-    	}       
+    	}
         renderAlveoli();
     }
 }
