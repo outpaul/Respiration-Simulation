@@ -12,6 +12,7 @@ int img[HEIGHT][WIDTH][3] = {0};
 int cap = 2;
 GLdouble upVector[3] = {0, 1.0, 0};
 int angle = 90;
+GLfloat theta = 3.14;
 
 void init() {
     glClearColor(1.0, 1.0, 1.0, 0.0);
@@ -23,6 +24,7 @@ void init() {
     glMatrixMode(GL_PROJECTION);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
     //gluLookAt(512, 720, 600, 512, 720, 0, upVector[0], upVector[1], upVector[2]);
     glOrtho(0, WIDTH, 0, HEIGHT, 500, -500);
 }
@@ -109,9 +111,12 @@ void renderLungs() {
 
 void renderAlveoli (){
     //glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(1.0,0.0,0.0);
+    //lumos();
+	glColor3f(0.7,0.8,0.4);
     //-------------ALVEOLI------------------------
     glTranslatef(-100, 50, 0);
+
+
 	glutSolidSphere(100, 100, 100);
     glTranslatef(100, -50, 0);
 
@@ -220,7 +225,9 @@ void animateAlveoli() {
     GLfloat a, b;
     int arrowFlag = 1;
     GLfloat alpha = 0;
-    for(GLfloat theta = 3.14; theta <= 6.28; theta += step) {
+    if(theta > 6.28)
+        theta = 3.14;
+    //for(GLfloat theta = 3.14; theta <= 6.28; theta += step) {
     	glClear(GL_COLOR_BUFFER_BIT);
     	/*alpha += ((8 * step * arrowFlag)/(3.14));
     	if(alpha >= 1)
@@ -236,7 +243,7 @@ void animateAlveoli() {
         	if(((theta + i * 1.047) <= 6.28 || (theta + i * 1.047) - 6.28 >= 3.14) && (theta + i * 1.047) >= 3.14) {
         		if((theta + i * 1.047) - 6.28 > 6.28)
         			flag = 1;
-        		else if(((theta + i * 1.047) > 6.28) && ((theta + i * 1.047) <= 6.28))
+        		else if(((theta + i * 1.047) > 4.71) && ((theta + i * 1.047) <= 6.28))
         			flag = 1;
                 glTranslatef(a, b, 0);
                 if(flag == 1)
@@ -248,7 +255,8 @@ void animateAlveoli() {
         	}
     	}
         renderAlveoli();
-    }
+    //}
+    theta += step;
 }
 
 void animate() {
