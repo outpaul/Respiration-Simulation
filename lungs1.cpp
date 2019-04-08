@@ -13,6 +13,7 @@ int cap = 2;
 GLdouble upVector[3] = {0, 1.0, 0};
 int angle = 90;
 GLfloat theta = 3.14;
+int displayFlag = 0;
 
 void init() {
     glClearColor(1.0, 1.0, 1.0, 0.0);
@@ -147,11 +148,17 @@ void renderAlveoli (){
 
 void display() {
 
-	glClear(GL_COLOR_BUFFER_BIT);
-	if(cap == 0)
+	//glClear(GL_COLOR_BUFFER_BIT);
+	if(cap == 0) {
+        if(displayFlag)
+            glTranslatef(-512,-720,0.0);
+        displayFlag = 0;
 		renderLungs();
+    }
 	else {
-		glTranslatef(512,720,0.0);
+        if(!displayFlag)
+		      glTranslatef(512,720,0.0);
+        displayFlag = 1;
 		renderAlveoli();
 	}
 
@@ -254,7 +261,7 @@ void animateAlveoli() {
                 glTranslatef(-a, -b, 0);
         	}
     	}
-        renderAlveoli();
+        display();
     //}
     theta += step;
 }
@@ -267,7 +274,7 @@ void animate() {
 }
 void start(int button, int state, int x, int y) {
 
-    if(button == GLUT_LEFT_BUTTON) {
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
         x = 0;
         y = 0;
         xspeed = 1;
@@ -295,7 +302,7 @@ void handleKey(int key, int x, int y) {
         else if(key == GLUT_KEY_DOWN) {
     	   glRotatef(-10,1.0,0.0,0.0);
     	}
-    	renderAlveoli();
+    	display();
     }
 }
 
@@ -320,7 +327,7 @@ int main(int argc, char **argv) {
     init();
     glutDisplayFunc(display);
     glutIdleFunc(animate);
-    //glutMouseFunc(start);
+    glutMouseFunc(start);
     glutSpecialFunc(handleKey);
     glutMainLoop();
 
