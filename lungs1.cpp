@@ -17,6 +17,7 @@ int displayFlag = 0;
 GLfloat alpha = 0;
 int arrowFlag = 1;
 int scaleFlag = 0;
+vector<GLfloat> colorFlags(6, 0.0);
 
 void init() {
     glClearColor(1.0, 1.0, 1.0, 0.0);
@@ -265,8 +266,11 @@ void animateAlveoli() {
     float radius = 250;
 	GLfloat step = 1/radius;
     GLfloat a, b;
-    if(theta > 6.28)
+    if(theta > 6.28) {
         theta = 3.14;
+        for(int i = 0;i < 6;i++)
+            colorFlags[i] = 0.0;
+    }
     //for(GLfloat theta = 3.14; theta <= 6.28; theta += step) {
     	glClear(GL_COLOR_BUFFER_BIT);
         if(alpha >= 1)
@@ -286,8 +290,12 @@ void animateAlveoli() {
         		else if(((theta + i * 1.047) > 4.71) && ((theta + i * 1.047) <= 6.28))
         			flag = 1;
                 glTranslatef(a, b, 0);
-                if(flag == 1)
-                    glColor3f(0.0f,0.0f,1.0f);
+                if(flag == 1) {
+                    glColor3f(1 - colorFlags[i],0.0f,colorFlags[i]);
+                    if(colorFlags[i] < 1)
+                        colorFlags[i] += 0.01;
+                    //cout << colorFlags[i] << endl;
+                }
                 else
                     glColor3f(1.0f,0.0f,0.0f);
         		glutSolidSphere(45, 100, 100);
